@@ -52,19 +52,10 @@
 
       <section class="chatbot" id="chatbot" aria-live="polite">
         <h2>Chatbot</h2>
-        <p>Connect your OpenAI API key below to get real model answers.</p>
-
-        <div class="model-config">
-          <label for="apiKeyInput">OpenAI API key</label>
-          <input id="apiKeyInput" type="password" placeholder="sk-..." autocomplete="off" />
-          <label for="modelInput">Model</label>
-          <input id="modelInput" type="text" value="gpt-4.1-mini" />
-          <button class="cta small" id="saveApiBtn" type="button">Save Key</button>
-          <p class="helper-text" id="configStatus">Key not saved yet. Chat uses local fallback answers.</p>
-        </div>
+        <p>Ask me anything and I'll help you with NovaAI.</p>
 
         <div class="chat-window" id="chatWindow">
-          <p class="bot">Hi! I'm NovaAI. Ask a question, and I'll answer with OpenAI if your key is set.</p>
+          <p class="bot">Hi! I'm NovaAI. Ask a question and I'll do my best to help.</p>
         </div>
         <form id="chatForm" class="chat-form">
           <label for="chatInput" class="sr-only">Type your message</label>
