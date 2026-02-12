@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaAI — Build with Intelligence</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="nav">
+        <div class="brand">NovaAI</div>
+        <button class="cta small" id="startFreeBtn">Start Free</button>
+      </nav>
+      <div class="hero-content">
+        <p class="eyebrow">AI Platform for Teams</p>
+        <h1>Turn ideas into products with trusted AI.</h1>
+        <p><a class="simple-link" href="/">Open the AI website</a></p>
+        <p class="subhead">
+          Build chatbots, automate workflows, and analyze data in one place.
+          Designed for startups and enterprises alike.
+        </p>
+        <div class="actions">
+          <button class="cta" id="demoBtn">Try Interactive Demo</button>
+          <a class="link" href="#features">Explore Features</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="features" class="features">
+        <article class="card">
+          <h2>Conversational AI</h2>
+          <p>Create assistants that answer naturally using your business knowledge.</p>
+        </article>
+        <article class="card">
+          <h2>Workflow Automation</h2>
+          <p>Connect apps and trigger intelligent actions with zero manual work.</p>
+        </article>
+        <article class="card">
+          <h2>Real-time Insights</h2>
+          <p>Ask questions in plain English and get analytics in seconds.</p>
+        </article>
+      </section>
+
+      <section class="demo" aria-live="polite">
+        <h2>Quick Demo</h2>
+        <p>Click the button to generate an AI-style product idea.</p>
+        <button class="cta" id="ideaBtn">Generate Idea</button>
+        <p id="ideaOutput" class="idea-output">Your idea will appear here.</p>
+      </section>
+
+      <section class="chatbot" id="chatbot" aria-live="polite">
+        <h2>Chatbot</h2>
+        <p>Ask NovaAI something to see a quick assistant response.</p>
+        <div class="chat-window" id="chatWindow">
+          <p class="bot">Hi! I'm NovaAI. How can I help today?</p>
+        </div>
+        <form id="chatForm" class="chat-form">
+          <label for="chatInput" class="sr-only">Type your message</label>
+          <input id="chatInput" type="text" placeholder="Ask about pricing, setup, or features..." required />
+          <button type="submit" class="cta">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> NovaAI. Built for the future.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
