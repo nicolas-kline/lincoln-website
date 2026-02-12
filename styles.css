@@ -1,0 +1,151 @@
+:root {
+  --bg: #090d1f;
+  --bg-soft: #131a35;
+  --text: #e8ecff;
+  --muted: #b7c1ee;
+  --accent: #6f8dff;
+  --accent-2: #7df9d4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  background: radial-gradient(circle at top, #1a2352 0%, var(--bg) 55%);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.hero {
+  min-height: 70vh;
+  padding: 1.5rem clamp(1rem, 3vw, 3rem) 3rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.hero-content {
+  margin-top: 5rem;
+  max-width: 720px;
+}
+
+.eyebrow {
+  color: var(--accent-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+h1 {
+  margin: 0.4rem 0 1rem;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.1;
+}
+
+.subhead {
+  color: var(--muted);
+  max-width: 56ch;
+}
+
+.actions {
+  margin-top: 1.75rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cta {
+  border: none;
+  background: linear-gradient(135deg, var(--accent), #86a0ff);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.8rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgb(111 141 255 / 40%);
+}
+
+.cta.small {
+  font-size: 0.85rem;
+  padding: 0.6rem 0.9rem;
+}
+
+.link {
+  color: var(--accent-2);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.simple-link {
+  color: #fff;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+main {
+  padding: 0 clamp(1rem, 3vw, 3rem) 3rem;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: rgb(19 26 53 / 70%);
+  border: 1px solid rgb(146 167 255 / 22%);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.card h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.demo {
+  margin-top: 2rem;
+  background: rgb(11 15 31 / 90%);
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 1px solid rgb(146 167 255 / 16%);
+}
+
+.idea-output {
+  margin-top: 1rem;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+footer {
+  border-top: 1px solid rgb(146 167 255 / 18%);
+  text-align: center;
+  padding: 1rem;
+  color: var(--muted);
+}
