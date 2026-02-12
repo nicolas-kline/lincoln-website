@@ -113,10 +113,6 @@ const chatSection = document.getElementById('chatbot');
 const chatForm = document.getElementById('chatForm');
 const chatInput = document.getElementById('chatInput');
 const chatWindow = document.getElementById('chatWindow');
-const apiKeyInput = document.getElementById('apiKeyInput');
-const modelInput = document.getElementById('modelInput');
-const saveApiBtn = document.getElementById('saveApiBtn');
-const configStatus = document.getElementById('configStatus');
 const year = document.getElementById('year');
 
 function appendMessage(text, role) {
@@ -128,36 +124,11 @@ function appendMessage(text, role) {
 }
 
 function readStoredConfig() {
-  const storedApiKey = localStorage.getItem('openai_api_key');
-  const storedModel = localStorage.getItem('openai_model');
-
   return {
-    apiKey: storedApiKey !== null ? storedApiKey : CONFIG_API_KEY_FALLBACK,
-    model: storedModel || CONFIG_MODEL_FALLBACK
+    apiKey: CONFIG_API_KEY_FALLBACK,
+    model: CONFIG_MODEL_FALLBACK
   };
 }
-
-function updateStatus(apiKey) {
-  configStatus.textContent = apiKey
-    ? 'OpenAI key available. Chat uses live OpenAI responses.'
-    : 'Key not set. Chat uses local fallback answers.';
-}
-
-const initialConfig = readStoredConfig();
-apiKeyInput.value = initialConfig.apiKey;
-modelInput.value = initialConfig.model;
-updateStatus(initialConfig.apiKey);
-
-saveApiBtn.addEventListener('click', () => {
-  const apiKey = apiKeyInput.value.trim();
-  const model = modelInput.value.trim() || CONFIG_MODEL_FALLBACK;
-
-  localStorage.setItem('openai_api_key', apiKey);
-  localStorage.setItem('openai_model', model);
-
-  updateStatus(apiKey);
-  appendMessage(apiKey ? 'OpenAI key saved. Ask me anything.' : 'OpenAI key removed. Using fallback answers.', 'bot');
-});
 
 ideaBtn.addEventListener('click', () => {
   const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
