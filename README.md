@@ -18,5 +18,3 @@ After the first successful run, your site URL will be:
 ## How it works
 
 The workflow file at `.github/workflows/deploy-test-site.yml` deploys the static files in this repository to GitHub Pages on every push to `main`.
-
-Check actions for site build
