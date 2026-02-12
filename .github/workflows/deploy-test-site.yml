@@ -24,6 +24,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate app config from GitHub secrets
+        run: |
+          cat > app-config.js <<'CONFIG'
+          window.NOVA_CONFIG = {
+            openaiApiKey: '${{ secrets.OPENAI_API_KEY }}',
+            openaiModel: '${{ vars.OPENAI_MODEL || 'gpt-4.1-mini' }}'
+          };
+          CONFIG
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

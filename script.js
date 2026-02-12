@@ -5,6 +5,10 @@ const ideas = [
   'A sales assistant that turns call transcripts into follow-up plans instantly.'
 ];
 
+const appConfig = window.NOVA_CONFIG || {};
+const CONFIG_MODEL_FALLBACK = appConfig.openaiModel || 'gpt-4.1-mini';
+const CONFIG_API_KEY_FALLBACK = appConfig.openaiApiKey || '';
+
 const knowledgeBase = [
   {
     match: ['price', 'pricing', 'cost', 'plan', 'plans'],
@@ -39,6 +43,30 @@ function getFallbackAnswer(question) {
   return "I don't have enough local context for that yet. Add your OpenAI API key above for high-quality answers.";
 }
 
+function extractOutputText(data) {
+  if (typeof data.output_text === 'string' && data.output_text.trim()) {
+    return data.output_text.trim();
+  }
+
+  if (!Array.isArray(data.output)) {
+    return '';
+  }
+
+  const chunks = [];
+
+  for (const item of data.output) {
+    if (!Array.isArray(item.content)) continue;
+
+    for (const part of item.content) {
+      if (typeof part.text === 'string' && part.text.trim()) {
+        chunks.push(part.text.trim());
+      }
+    }
+  }
+
+  return chunks.join('\n').trim();
+}
+
 async function getOpenAIAnswer(question, apiKey, model) {
   const response = await fetch('https://api.openai.com/v1/responses', {
     method: 'POST',
@@ -68,7 +96,13 @@ async function getOpenAIAnswer(question, apiKey, model) {
   }
 
   const data = await response.json();
-  return data.output_text?.trim() || 'I received no text response from the model.';
+  const text = extractOutputText(data);
+
+  if (!text) {
+    throw new Error('The model returned an empty response. Try asking again or switch models.');
+  }
+
+  return text;
 }
 
 const ideaOutput = document.getElementById('ideaOutput');
@@ -94,16 +128,19 @@ function appendMessage(text, role) {
 }
 
 function readStoredConfig() {
+  const storedApiKey = localStorage.getItem('openai_api_key');
+  const storedModel = localStorage.getItem('openai_model');
+
   return {
-    apiKey: localStorage.getItem('openai_api_key') || '',
-    model: localStorage.getItem('openai_model') || 'gpt-4.1-mini'
+    apiKey: storedApiKey !== null ? storedApiKey : CONFIG_API_KEY_FALLBACK,
+    model: storedModel || CONFIG_MODEL_FALLBACK
   };
 }
 
 function updateStatus(apiKey) {
   configStatus.textContent = apiKey
-    ? 'OpenAI key saved in this browser. Chat uses live OpenAI responses.'
-    : 'Key not saved yet. Chat uses local fallback answers.';
+    ? 'OpenAI key available. Chat uses live OpenAI responses.'
+    : 'Key not set. Chat uses local fallback answers.';
 }
 
 const initialConfig = readStoredConfig();
@@ -113,15 +150,11 @@ updateStatus(initialConfig.apiKey);
 
 saveApiBtn.addEventListener('click', () => {
   const apiKey = apiKeyInput.value.trim();
-  const model = modelInput.value.trim() || 'gpt-4.1-mini';
+  const model = modelInput.value.trim() || CONFIG_MODEL_FALLBACK;
 
-  if (apiKey) {
-    localStorage.setItem('openai_api_key', apiKey);
-  } else {
-    localStorage.removeItem('openai_api_key');
-  }
-
+  localStorage.setItem('openai_api_key', apiKey);
   localStorage.setItem('openai_model', model);
+
   updateStatus(apiKey);
   appendMessage(apiKey ? 'OpenAI key saved. Ask me anything.' : 'OpenAI key removed. Using fallback answers.', 'bot');
 });

@@ -19,14 +19,28 @@ After the first successful run, your site URL will be:
 
 The workflow file at `.github/workflows/deploy-test-site.yml` deploys the static files in this repository to GitHub Pages on every push to `main`.
 
-## Connect chatbot to OpenAI
+## Connect chatbot to OpenAI using repo secrets
 
-1. Open the deployed site.
-2. Scroll to the **Chatbot** section.
-3. Paste your OpenAI API key in **OpenAI API key**.
-4. (Optional) change model name (default: `gpt-4.1-mini`).
-5. Click **Save Key**.
+If you already created a secret named `OPENAI_API_KEY`, this repo now uses it automatically during deployment.
 
-The key is saved in your browser `localStorage` and used for direct calls to OpenAI's Responses API.
+### Required GitHub settings
 
-> Note: this is a demo-only approach. For production, use a backend proxy so your API key is never exposed to end users.
+1. Go to **Settings → Secrets and variables → Actions → Secrets**.
+2. Ensure `OPENAI_API_KEY` exists.
+3. (Optional) add a repository variable `OPENAI_MODEL` (for example: `gpt-4.1-mini`).
+4. Push to `main` to trigger a new deploy.
+
+During deploy, the workflow generates `app-config.js` from those values.
+
+### Local development
+
+For local testing (without GitHub Actions), edit `app-config.js` directly:
+
+```js
+window.NOVA_CONFIG = {
+  openaiApiKey: 'sk-your-real-key-here',
+  openaiModel: 'gpt-4.1-mini'
+};
+```
+
+> Security note: any key baked into a static site is visible to end users. For production, use a backend proxy so your API key stays secret.
